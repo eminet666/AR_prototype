@@ -1,0 +1,58 @@
+<!doctype HTML>
+<html>
+  <head>
+      <title>exemples AR avec AR.js</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <!-- librairies utiles pour la réalité augmentée et l'utilisation des modèles en 3D _ NE PAS MODIFIER -->
+      <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
+      <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+      <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.5.0/aframe/build/aframe-ar.js"> </script>
+      <script src="js/aframe-extras.js"></script>
+      <script src="js/aframe-text-geometry-component.min.js"></script>
+
+  </head>
+
+  <body>
+
+      <!-- ressource json : modifier ici le nom du fichier json -->
+      <a-assets>
+          <a-asset-item id="model" src="models/eva-animated.json"/></a-asset-item>
+      </a-assets>
+
+      <!-- scène virtuelle -->
+      <a-scene embedded arjs='trackingMethod: best; debugUIEnabled: false;'>
+            <a-marker preset="hiro">                        <!-- marker par défaut -->
+
+                <!-- modèle 3D avec ses paramètres :
+                json-model="src: #model"      : id de la ressource définie plus haut
+                animation-mixer="clip: walk"  : intégration des animation et anim par défaut : b_walk
+                log="motion ok"               : fonction log et sa valeur paramétre
+                changeanim                    : fonction changeanim (sans paramètre)
+                scale, position et rotation sont relativement au modele 3D.
+                la position 0 0 0 signifie qu'il apparait au centre du du marker
+                attention pour la rotation en degrés n'a pas le même repère x-y-z que blender (y et z inversés)
+                scale peut être ajuster pour agrndir ou rétrécir votre modélisation selon son échelle de départ
+                (c'est une des raison qui peut expliquer que vous ne le voyez pas)
+                -->
+
+                <a-entity   id ="motion"
+                            scale="0.5 0.5 0.5"
+                            position="0 0 0"
+                            rotation="0 0 0"
+                            log="motion ok"
+                            changeanim
+                            animation-mixer="clip: walk"
+                            json-model="src: #model">
+                 </a-entity>
+            </a-marker>
+
+            <a-entity camera>
+                <a-cursor color="red"></a-cursor>     <!-- c'est le cercle rouge au centre de la scène -->
+            </a-entity>
+
+      </a-scene>
+
+  </body>
+</html>
